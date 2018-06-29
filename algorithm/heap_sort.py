@@ -16,7 +16,8 @@ def heap_sort(L, i):
     temp_L.extend(L[leftchild_i:right_child_i+1])
 
     # 获取最大数
-    max_item = max(temp_L)
+    # max_item = max(temp_L)
+    max_item = min(temp_L)
 
     # 删除最大数后的列表
     temp_L.remove(max_item)
@@ -32,7 +33,7 @@ def heap_sort(L, i):
                 L[child_i] = temp_L[temp_L_i]
                 L = heap_sort(L, child_i)
     return L
-
+    # 优化方向：list.index()去获取index
 
 def create_heap(L):
     """
@@ -102,11 +103,19 @@ if __name__ == '__main__':
 
     L = random_int_list(1, 100, 10)
     # L = [20, 17, 14, 16, 15, 10, 8, 13]
+    L = [0, 13, 27, 38, 49, 49, 65, 76, 97]
     print(L)
 
     # 轮训次数（顶点个数）
-    L = create_heap(L)
-    print(L)
+    import time
+    t10 = 0
+    for i in range(10):
+        stime = time.time()
+        L = create_heap(L)
+        etime = time.time()
+        t = etime - stime
+        t10 += t
+    print(t10, L)
 
     # 添加一个元素（由于会重新排序，这里不考虑插入位置，一律append）
     L = add_item(L, 100)
